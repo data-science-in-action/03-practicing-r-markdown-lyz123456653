@@ -17,7 +17,7 @@ I will use the Monte Carlo method to calculate the definite integral in the expe
 The form of definite integral is :
 the distribution function of $N(0, 1)$,
 \begin{equation}
-\Phi(t) = \int_{-\infty}^t \frac{1}{\sqrt{2\pi}} e^{-y^2 / 2} \dd y,
+\Phi(t) = \int_{-\infty}^t \frac{1}{\sqrt{2\pi}} e^{-y^2 / 2} d y,
 (\#eq:cdf)
   \end{equation}
 by the Monte Carlo methods:
@@ -50,7 +50,7 @@ sampling, correlation sampling, important sampling, etc.).
 5. Statistical analysis of simulation test results, giving the probability solution of the problem and the accuracy estimation of the solution.   
 
 # Experimental result 
-Here's real value code
+**1.Here's real value code**
 ```{r}
 for(t in c(0,0.67,0.84,1.28,1.65,2.32,2.58,3.09,3.72))
 {
@@ -61,7 +61,7 @@ print(h)
 }
 ```
 
-Here's Monte Karlo code(N=10^2)
+**2.Here's Monte Karlo code(N=10^2)**
 ```{r}
 z1=0;z2=0;z3=0;z4=0;z5=0;z6=0;z7=0;z8=0;z9=0;
 m=0;
@@ -273,9 +273,64 @@ dim(zz)=c(101,9)
  zz[1:101,7]=z7
  zz[1:101,8]=z8
  zz[1:101,9]=z9
- View(zz)
+
+knitr::kable(
+  head(zz), booktabs = TRUE,
+  caption = 'N=10^2,Monte Carlo.'
+)
+
 ```
-          
+
+
+
+**3.This is the boxplot of the N=100**
+```{r}
+zz=as.data.frame(zz)
+library(ggplot2)
+library(lattice)
+library(plyr)
+library(Rmisc)
+T1=ggplot(data=zz,aes(y=V1))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T2=ggplot(data=zz,aes(y=V2))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T3=ggplot(data=zz,aes(y=V3))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T4=ggplot(data=zz,aes(y=V4))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T5=ggplot(data=zz,aes(y=V5))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T6=ggplot(data=zz,aes(y=V6))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T7=ggplot(data=zz,aes(y=V7))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T8=ggplot(data=zz,aes(y=V8))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+T9=ggplot(data=zz,aes(y=V9))+geom_boxplot(
+  fill="thistle",colour="gray27")+
+  labs(title="Boxplot of error at t=0, n=100",y="error",
+       x=NULL)+theme(plot.title=element_text(size=6,hjust=0.4))
+TT=multiplot(T1,T2,T3,T4,T5,T6,T7,T8,T9,cols=9)
+```
+
+**4.the table display the real value and the resultsof Monte Karlo**
+        
                  |t=0.0|t=0.67|t=0.84|t=1.28|t=1.65|t=2.32|t=2.58|t=3.09|t=3.72
 -------------    | --- | -----|------|------|------|------|------|------|------
 Monte Karlo(Mean)
@@ -283,3 +338,7 @@ N=10^2           | 0.48| 0.69 |	0.69 | 0.55 |	0.38 | 0.13 |	0.07 | 0.02 | 0.003
 N=10^3           | 0.50| 0.68 |	0.66 | 0.55 |	0.38 | 0.13 |	0.07 | 0.02 |	0.003
 N=10^4           | 0.50| 0.67 |	0.67 | 0.55 |	0.38 | 0.13	| 0.07 | 0.02 |	0.003
 real value       | 0.50|	0.25|	0.20 | 0.10 |	0.05 | 0.01 | 0.005|0.001 |0.0001
+
+# Conclusion
+The error depends on both the number of sample and the extreme limitation.The more sample and the larger extreme limitation will bring the smaller error.
+
