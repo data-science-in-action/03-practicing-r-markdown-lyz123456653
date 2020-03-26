@@ -5,7 +5,7 @@ author: Yuzhi Liu^[Master of Applied Statistics student at Department of Statist
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   html_document:
-    df_print: paged
+  df_print: paged
 abstract: |
   Using Monte Carlo method to calculate definite integral and compare the results .
 ---
